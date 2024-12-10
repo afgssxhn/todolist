@@ -36,9 +36,12 @@ function createTask(objectData) {
     input.type = "checkbox";
     
 
+    // Обработчик изменения статуса задачи (чекбокс)
     input.addEventListener("change", () => {
+        // Ищем задачу в массиве по ID
         const index = data.findIndex(item => item.id === objectData.id);
         if (index !== -1) {
+            // Меняем статус на противоположный
             data[index].isDone = !data[index].isDone;
             render();
         }
@@ -59,9 +62,12 @@ function createTask(objectData) {
     btn.appendChild(img);
     
 
+    // Обработчик удаления задачи
     btn.addEventListener("click", () => {
+        // Ищем задачу в массиве по ID
         const index = data.findIndex(item => item.id === objectData.id);
         if (index !== -1) {
+            // Удаляем задачу из массива
             data.splice(index, 1);
             render();
         }
