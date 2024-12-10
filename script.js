@@ -4,10 +4,7 @@ const listEl = (document.getElementsByClassName("app__list"))[0];
 
 let counter = 1;
 
-const data = [
-    { id: 77, text: "Some text", isDone: false },
-    { id: 1, text: "Some text 2", isDone: true },
-];
+const data = [];
 
 //function initCounter(){
 
@@ -37,7 +34,17 @@ function createTask(objectData) {
     }
 
     input.type = "checkbox";
+    
 
+    input.addEventListener("change", () => {
+        const index = data.findIndex(item => item.id === objectData.id);
+        if (index !== -1) {
+            data[index].isDone = !data[index].isDone;
+            render();
+        }
+    });
+
+    
     const text = document.createElement("p");
     text.classList.add("app__list-item-text");
     text.innerText = objectData.text;
@@ -50,13 +57,22 @@ function createTask(objectData) {
     img.alt = "trash";
 
     btn.appendChild(img);
+    
+
+    btn.addEventListener("click", () => {
+        const index = data.findIndex(item => item.id === objectData.id);
+        if (index !== -1) {
+            data.splice(index, 1);
+            render();
+        }
+    });
+
 
     root.appendChild(input);
     root.appendChild(text);
     root.appendChild(btn);
 
     return root;
-    //console.log(root);
 }
 
 btnEl.addEventListener("click", () => {
